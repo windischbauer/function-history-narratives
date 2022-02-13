@@ -2,10 +2,6 @@
 
 ## Backend
 
-There are two preset databases in the db folder. To select one it is either possible to change the database in the code or simply change the database name to `mhg-sqlite.db`
-
-**Note: using the smaller database significantly improves the performance**
-
 The backend is available at `http://0.0.0.0:5000`
 
 ### Installation
