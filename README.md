@@ -6,7 +6,7 @@ The backend is available at `http://0.0.0.0:5000`
 
 ### Installation
 
-Be sure to install pycg on your local machine: `pip install pycg`
+Be sure to install pycg on your local machine: `pip install pycg`  
 Go to backend root folder and run `pip install -r requirements.txt`
 
 ### Start
