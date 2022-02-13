@@ -1,0 +1,7 @@
+/.idea
+.idea
+mhg-sqlite.db
+*-backup-mhg-sqlite.db
+*-backup-*.db
+*-mhg-sqlite.db
+

@@ -1,0 +1,11 @@
+.differ {
+  //display: inline-block;
+  max-width: calc(100vw - 492px);
+  font: 400 14px/14px Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.diff-header {
+  display: flex;
+  font-size: 16px;
+}
+

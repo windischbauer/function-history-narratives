@@ -1,0 +1,13 @@
+.overlay-spinner-container {
+  margin-top: 56px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: calc(100vh - 56px);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 20000;
+}

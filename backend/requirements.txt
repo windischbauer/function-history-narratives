@@ -1,0 +1,12 @@
+connexion==2.9.0
+Flask==1.1.4
+Flask_GraphQL==2.0.1
+flask_marshmallow==0.14.0
+Flask_SQLAlchemy==2.5.1
+graphene==2.1.9
+graphene_sqlalchemy==2.3.0
+graphql_relay==2.0.1
+marshmallow==3.14.0
+SQLAlchemy==1.4.27
+tqdm==4.62.3
+Werkzeug==1.0.1

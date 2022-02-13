@@ -1,0 +1,60 @@
+.non-clickable {
+  color: gray;
+}
+
+.function-toolbar {
+  background: whitesmoke;
+  height: 35px;
+  //padding-left: 26px
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.func-table {
+  width: 100%;
+
+  th {
+    position: sticky;
+    top: 35px;
+    z-index: 100;
+    background: white;
+  }
+
+  tr {
+    height: 30px;
+
+    td {
+      cursor: pointer;
+    }
+  }
+}
+
+.test {
+  background: black;
+}
+
+.back-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+}
+
+.function-title {
+  margin: 0 0 0 10px;
+}
+
+.mat-column-commit_count {
+  text-align: right;
+}
+
+.mat-column-last_commit_time {
+  text-align: right;
+}
+
+.mat-column-last_commit_rev {
+  text-align: right;
+}
+

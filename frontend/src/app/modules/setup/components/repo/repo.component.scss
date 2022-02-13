@@ -1,0 +1,48 @@
+.repo-toolbar {
+  background: whitesmoke;
+  height: 35px;
+  //padding-left: 26px
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.repo-table {
+  width: 100%;
+
+  th {
+    position: sticky;
+    top: 35px;
+    z-index: 100;
+    background: white;
+  }
+
+  tr {
+    //height: 30px;
+
+    td {
+      cursor: pointer;
+    }
+  }
+}
+
+.repo-title {
+  margin: 0 0 0 40px;
+}
+
+.mat-column-commit_count {
+  text-align: right;
+}
+
+.mat-column-function_count {
+  text-align: right;
+}
+
+.mat-column-last_commit_time {
+  text-align: right;
+}
+
+.mat-column-last_commit_rev {
+  text-align: right;
+}
+

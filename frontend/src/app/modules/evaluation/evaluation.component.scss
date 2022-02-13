@@ -1,0 +1,50 @@
+@import 'src/styles';
+
+.depth-slider {
+  width: 300px
+}
+
+.top-toolbar {
+  position: sticky;
+  position: -webkit-sticky;
+  z-index: 1000;
+  height: 56px;
+}
+
+.mat-sidenav-container {
+}
+
+.drawer-container {
+  width: 350px;
+  background: lightgray;
+}
+
+mat-drawer-content {
+  height: calc(100vh - 56px);
+  display: flex;
+  background: lightgray;
+}
+
+.left-side {
+  display: flex;
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+
+  .graph-wrapper {
+    height: 100%;
+  }
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 56px);
+  overflow-y: scroll;
+}
+
+.diff-container {
+  overflow: scroll;
+}

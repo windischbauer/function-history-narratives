@@ -1,0 +1,89 @@
+<mat-toolbar class="top-toolbar">
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h2>Function History Narratives</h2>
+  <div class="spacer"></div>
+  <app-overlay-spinner *ngIf="waiting"></app-overlay-spinner>
+</mat-toolbar>
+<mat-drawer-container class="mat-sidenav-container" [hasBackdrop]="false">
+  <mat-drawer #drawer mode="side" class="drawer-container">
+    <div class="component-container">
+      <h3>New Repository</h3>
+      <form (ngSubmit)="createGitRepo(repoFormValue)">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Full path to repository</mat-label>
+          <input matInput type="text" [(ngModel)]="repoFormValue" [ngModelOptions]="{standalone: true}">
+          <button mat-button *ngIf="repoFormValue" type="button" matSuffix mat-icon-button aria-label="Clear"
+                  (click)="repoFormValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <div>
+          <mat-checkbox
+            [checked]="generateCallgraphs"
+            (change)="generateCallgraphs = !generateCallgraphs">
+            generate call graphs
+          </mat-checkbox>
+        </div>
+        <div class="disclaimer">
+          <strong>Warning:</strong> Generating call graphs for a repo may take a long time depending
+          on the size of the project and the number of commits.
+          However, without this option you are missing out on the key functionality and this
+          <strong>cannot</strong> be done at a later time.
+        </div>
+        <div class="button-container">
+          <button mat-flat-button style="background-color: #124559 !important; color: white !important" type="submit">
+            SUBMIT
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="component-container">
+      <h3>Repository Settings</h3>
+      <div>
+        <mat-checkbox
+          [checked]="fullPath"
+          (change)="fullPath = !fullPath">
+          show full path name
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="component-container">
+      <h3>Function Settings</h3>
+      <div>
+        <mat-checkbox
+          [checked]="excludeTests"
+          (change)="excludeTests = !excludeTests">
+          exclude tests
+          <span *ngIf="stateService.functions.length > 0">&nbsp;({{testCount()}})</span>
+        </mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox
+          [checked]="excludeEmptyBodies"
+          (change)="excludeEmptyBodies = !excludeEmptyBodies">
+          exclude functions with empty bodies
+          <span *ngIf="stateService.functions.length > 0">&nbsp;({{emptyBodyCount()}})</span>
+        </mat-checkbox>
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <ng-container *ngIf="stateService.functions.length === 0">
+      <app-repo
+        [fullPath]="fullPath"
+        [repos]="stateService.repos"
+        (selectedRepo)="getFunctionsByRepo($event)"></app-repo>
+    </ng-container>
+    <ng-container *ngIf="stateService.functions.length > 0">
+      <app-function
+        [functions]="stateService.functions"
+        [excludeEmptyBodies]="excludeEmptyBodies"
+        [excludeTests]="excludeTests"
+        (selectedFuncEmitter)="setSelectedFunctionAndRouteToEval($event)"
+        (clearFuncsEmitter)="clearFunctions()"
+      ></app-function>
+    </ng-container>
+  </mat-drawer-content>
+</mat-drawer-container>

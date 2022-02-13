@@ -1,0 +1,1696 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger REST Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Path supported by the server application
+paths:
+  /user:
+    get:
+      operationId: services.user.read_all
+      tags:
+        - User
+      summary: The user data structure supported by the server application
+      description: Read the list of users
+      responses:
+        200:
+          description: Successful read user list operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                username:
+                  type: string
+                email:
+                  type: string
+#    post:
+#      operationId: services.user.create
+#      tags:
+#        - User
+#      summary: Create a user
+#      description: Create a new user
+#      parameters:
+#        - name: user
+#          in: body
+#          description: User to create
+#          required: true
+#          schema:
+#            type: object
+#            properties:
+#              username:
+#                type: string
+#                description: username
+#              email:
+#                type: string
+#                description: email
+#      responses:
+#        201:
+#          description: Successfully created user
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#                description: database id
+#              username:
+#                type: string
+#                description: username
+#              email:
+#                type: string
+#                description: email
+#        409:
+#          description: User already esists
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#                description: database id
+#              username:
+#                type: string
+#                description: username
+#              email:
+#                type: string
+#                description: email
+  /user/{uid}:
+    get:
+      operationId: services.user.read
+      tags:
+        - User
+      summary: Read one user
+      description: Read one user
+      parameters:
+        - name: uid
+          in: path
+          description: Id of the user to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read user from user data operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: database id
+              username:
+                type: string
+                description: username
+              email:
+                type: string
+                description: email
+#    put:
+#      operationId: services.user.update
+#      tags:
+#        - User
+#      summary: Update one user
+#      description: Update one user
+#      parameters:
+#        - name: uid
+#          in: path
+#          description: Id of the user to update
+#          type: integer
+#          required: true
+#        - name: user
+#          in: body
+#          schema:
+#            type: object
+#            properties:
+#              username:
+#                type: string
+#              email:
+#                type: string
+#      responses:
+#        200:
+#          description: Successfully updated user
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#                description: database id
+#              username:
+#                type: string
+#                description: username
+#              email:
+#                type: string
+#                description: email
+#    delete:
+#      operationId: services.user.delete
+#      tags:
+#        - User
+#      summary: Delete one user
+#      description: Delete one user
+#      parameters:
+#        - name: uid
+#          in: path
+#          description: Id of the user to delete
+#          type: integer
+#          required: true
+#      responses:
+#        200:
+#          description: Successfully deleted user
+  /repo:
+    get:
+      operationId: services.repo.read_all_extended
+      tags:
+        - Repo
+      summary: The repo data structure supported by the server application
+      description: Read the list of repos
+      responses:
+        200:
+          description: Successful read repo list operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                path:
+                  type: string
+#    post:
+#      operationId: services.repo.create
+#      tags:
+#        - Repo
+#      summary: Create a repo
+#      description: Create a new repo
+#      parameters:
+#        - name: repo
+#          in: body
+#          description: Repo to create
+#          required: true
+#          schema:
+#            type: object
+#            properties:
+#              path:
+#                type: string
+#                description: path to the repo
+#      responses:
+#        201:
+#          description: Successfully created repo
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              path:
+#                type: string
+#        409:
+#          description: Repo already esists
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              path:
+#                type: string
+  /repo/{rid}:
+    get:
+      operationId: services.repo.read
+      tags:
+        - Repo
+      summary: Read one repo
+      description: Read one repo
+      parameters:
+        - name: rid
+          in: path
+          description: Id of the repo to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read repo from repo data operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              path:
+                type: string
+#    put:
+#      operationId: services.repo.update
+#      tags:
+#        - Repo
+#      summary: Update one repo
+#      description: Update one repo
+#      parameters:
+#        - name: rid
+#          in: path
+#          description: Id of the repo to update
+#          type: integer
+#          required: true
+#        - name: repo
+#          in: body
+#          schema:
+#            type: object
+#            properties:
+#              path:
+#                type: string
+#      responses:
+#        200:
+#          description: Successfully updated repo
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              path:
+#                type: string
+    delete:
+      operationId: services.repo.delete
+      tags:
+        - Repo
+      summary: Delete one repo
+      description: Delete one repo
+      parameters:
+        - name: rid
+          in: path
+          description: Id of the repo to delete
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully deleted repo
+  /repo/{rid}/functions:
+    get:
+      operationId: services.function.read_all_by_repo_extended
+      tags:
+        - Function
+      summary: Read all functions by repo
+      description: Read all functions by repo
+      parameters:
+        - name: rid
+          in: path
+          description: Id of the repo to get functions from
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successful read function list operation by repo id
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                filename:
+                  type: string
+                name:
+                  type: string
+                parameters:
+                  type: string
+                body:
+                  type: string
+                commit_rev_string:
+                  type: string
+  /repo/{rid}/user:
+    get:
+      operationId: services.user.read_all_by_repo
+      tags:
+        - User
+      summary: Read all users by repo
+      description: Read all users by repo
+      parameters:
+        - in: path
+          name: rid
+          type: integer
+          required: true
+          description: repo id
+      responses:
+        200:
+          description: Successfully read users by repo
+  /branch:
+    get:
+      operationId: services.branch.read_all
+      tags:
+        - Branch
+      summary: The branch data structure supported by the server application
+      description: Read the list of branchs
+      responses:
+        200:
+          description: Successful read branch list operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                repo_id:
+                  type: integer
+#    post:
+#      operationId: services.branch.create
+#      tags:
+#        - Branch
+#      summary: Create a branch
+#      description: Create a new branch
+#      parameters:
+#        - name: branch
+#          in: body
+#          description: Branch to create
+#          required: true
+#          schema:
+#            type: object
+#            properties:
+#              name:
+#                type: string
+#              repo_id:
+#                type: integer
+#      responses:
+#        201:
+#          description: Successfully created branch
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              path:
+#                type: string
+#        409:
+#          description: Branch already esists
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              name:
+#                type: string
+#              repo_id:
+#                type: integer
+  /branch/{bid}:
+    get:
+      operationId: services.branch.read
+      tags:
+        - Branch
+      summary: Read one branch
+      description: Read one branch
+      parameters:
+        - name: bid
+          in: path
+          description: Id of the branch to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read branch from branch data operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              repo_id:
+                type: integer
+#    put:
+#      operationId: services.branch.update
+#      tags:
+#        - Branch
+#      summary: Update one branch
+#      description: Update one branch
+#      parameters:
+#        - name: bid
+#          in: path
+#          description: Id of the branch to update
+#          type: integer
+#          required: true
+#        - name: branch
+#          in: body
+#          schema:
+#            type: object
+#            properties:
+#              path:
+#                type: string
+#      responses:
+#        200:
+#          description: Successfully updated branch
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              name:
+#                type: string
+#              repo_id:
+#                type: integer
+#    delete:
+#      operationId: services.branch.delete
+#      tags:
+#        - Branch
+#      summary: Delete one branch
+#      description: Delete one branch
+#      parameters:
+#        - name: bid
+#          in: path
+#          description: Id of the branch to delete
+#          type: integer
+#          required: true
+#      responses:
+#        200:
+#          description: Successfully deleted branch
+  /commit:
+    get:
+      operationId: services.commit.read_all
+      tags:
+        - Commit
+      summary: The commit data structure supported by the server application
+      description: Read the list of commits
+      responses:
+        200:
+          description: Successful read commit list operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                full_message:
+                  type: string
+                commit_time:
+                  type: string
+                rev_string:
+                  type: string
+                branch_id:
+                  type: integer
+                user_id:
+                  type: integer
+#    post:
+#      operationId: services.commit.create
+#      tags:
+#        - Commit
+#      summary: Create a commit
+#      description: Create a new commit
+#      parameters:
+#        - name: commit
+#          in: body
+#          description: Commit to create
+#          required: true
+#          schema:
+#            type: object
+#            properties:
+#              full_message:
+#                type: string
+#              commit_time:
+#                type: string
+#              rev_string:
+#                type: string
+#              branch_id:
+#                type: integer
+#              user_id:
+#                type: integer
+#      responses:
+#        201:
+#          description: Successfully created commit
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              full_message:
+#                type: string
+#              commit_time:
+#                type: string
+#              rev_string:
+#                type: string
+#              branch_id:
+#                type: integer
+#              user_id:
+#                type: integer
+#        409:
+#          description: Commit already esists
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              path:
+#                type: string
+  /commit/{cid}:
+    get:
+      operationId: services.commit.read
+      tags:
+        - Commit
+      summary: Read one commit
+      description: Read one commit
+      parameters:
+        - name: cid
+          in: path
+          description: Id of the commit to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read commit from commit data operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              full_message:
+                type: string
+              commit_time:
+                type: string
+              rev_string:
+                type: string
+              branch_id:
+                type: integer
+              user_id:
+                type: integer
+#    put:
+#      operationId: services.commit.update
+#      tags:
+#        - Commit
+#      summary: Update one commit
+#      description: Update one commit
+#      parameters:
+#        - name: cid
+#          in: path
+#          description: Id of the commit to update
+#          type: integer
+#          required: true
+#        - name: commit
+#          in: body
+#          schema:
+#            type: object
+#            properties:
+#              full_message:
+#                type: string
+#              commit_time:
+#                type: string
+#              rev_string:
+#                type: string
+#              branch_id:
+#                type: integer
+#              user_id:
+#                type: integer
+#      responses:
+#        200:
+#          description: Successfully updated commit
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              full_message:
+#                type: string
+#              commit_time:
+#                type: string
+#              rev_string:
+#                type: string
+#              branch_id:
+#                type: integer
+#              user_id:
+#                type: integer
+    delete:
+      operationId: services.commit.delete
+      tags:
+        - Commit
+      summary: Delete one commit
+      description: Delete one commit
+      parameters:
+        - name: cid
+          in: path
+          description: Id of the commit to delete
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully deleted commit
+  /commit/function:
+    get:
+      operationId: services.function.read_complete_history
+      tags:
+        - Function
+      summary: All versions from a specific function
+      parameters:
+        - name: name
+          in: query
+          type: string
+          required: true
+          description: function name
+        - name: rid
+          in: query
+          type: number
+          required: true
+          description: repo id
+      responses:
+        200:
+          description: Successful read newest function list operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                parameters:
+                  type: string
+                body:
+                  type: string
+                commit_rev_string:
+                  type: string
+                commit_time:
+                  type: string
+                change_type:
+                  type: string
+  /snapshot:
+    get:
+      operationId: services.snapshot.read_all
+      tags:
+        - Snapshot
+      summary: The snapshot data structure supported by the server application
+      description: Read the list of snapshots
+      responses:
+        200:
+          description: Successful read snapshot list operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                filename:
+                  type: string
+                content:
+                  type: string
+                edit_list:
+                  type: string
+                commit_id:
+                  type: integer
+#    post:
+#      operationId: services.snapshot.create
+#      tags:
+#        - Snapshot
+#      summary: Create a snapshot
+#      description: Create a new snapshot
+#      parameters:
+#        - name: snapshot
+#          in: body
+#          description: Snapshot to create
+#          required: true
+#          schema:
+#            type: object
+#            properties:
+#              filename:
+#                type: string
+#              content:
+#                type: string
+#              edit_list:
+#                type: string
+#              commit_id:
+#                type: integer
+#      responses:
+#        201:
+#          description: Successfully created snapshot
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              filename:
+#                type: string
+#              content:
+#                type: string
+#              edit_list:
+#                type: string
+#              commit_id:
+#                type: integer
+#        409:
+#          description: Snapshot already esists
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              filename:
+#                type: string
+#              content:
+#                type: string
+#              edit_list:
+#                type: string
+#              commit_id:
+#                type: integer
+  /snapshot/{sid}:
+    get:
+      operationId: services.snapshot.read
+      tags:
+        - Snapshot
+      summary: Read one snapshot
+      description: Read one snapshot
+      parameters:
+        - name: sid
+          in: path
+          description: Id of the snapshot to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read snapshot from snapshot data operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              filename:
+                type: string
+              content:
+                type: string
+              edit_list:
+                type: string
+              commit_id:
+                type: integer
+#    put:
+#      operationId: services.snapshot.update
+#      tags:
+#        - Snapshot
+#      summary: Update one snapshot
+#      description: Update one snapshot
+#      parameters:
+#        - name: sid
+#          in: path
+#          description: Id of the snapshot to update
+#          type: integer
+#          required: true
+#        - name: snapshot
+#          in: body
+#          schema:
+#            type: object
+#            properties:
+#              filename:
+#                type: string
+#              content:
+#                type: string
+#              edit_list:
+#                type: string
+#              commit_id:
+#                type: integer
+#      responses:
+#        200:
+#          description: Successfully updated snapshot
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              filename:
+#                type: string
+#              content:
+#                type: string
+#              edit_list:
+#                type: string
+#              commit_id:
+#                type: integer
+#    delete:
+#      operationId: services.snapshot.delete
+#      tags:
+#        - Snapshot
+#      summary: Delete one snapshot
+#      description: Delete one snapshot
+#      parameters:
+#        - name: sid
+#          in: path
+#          description: Id of the snapshot to delete
+#          type: integer
+#          required: true
+#      responses:
+#        200:
+#          description: Successfully deleted snapshot
+  /function:
+    get:
+      operationId: services.function.read_all
+      tags:
+        - Function
+      summary: The function data structure supported by the server application
+      description: Read the list of functions
+      responses:
+        200:
+          description: Successful read function list operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                parameters:
+                  type: string
+                body:
+                  type: string
+                commit_rev_string:
+                  type: string
+#    post:
+#      operationId: services.function.create
+#      tags:
+#        - Function
+#      summary: Create a function
+#      description: Create a new function
+#      parameters:
+#        - name: function
+#          in: body
+#          description: Function to create
+#          required: true
+#          schema:
+#            type: object
+#            properties:
+#              filename:
+#                type: string
+#              name:
+#                type: string
+#              parameters:
+#                type: string
+#              body:
+#                type: string
+#              commit_rev_string:
+#                type: string
+#      responses:
+#        201:
+#          description: Successfully created function
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              filename:
+#                type: string
+#              name:
+#                type: string
+#              parameters:
+#                type: string
+#              body:
+#                type: string
+#              commit_rev_string:
+#                type: string
+#        409:
+#          description: Function already esists
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              filename:
+#                type: string
+#              name:
+#                type: string
+#              parameters:
+#                type: string
+#              body:
+#                type: string
+#              commit_rev_string:
+#                type: string
+  /function/{fid}:
+    get:
+      operationId: services.function.read
+      tags:
+        - Function
+      summary: Read one function
+      description: Read one function
+      parameters:
+        - name: fid
+          in: path
+          description: Id of the function to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read function from function data operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              filename:
+                type: string
+              name:
+                type: string
+              parameters:
+                type: string
+              body:
+                type: string
+              commit_rev_string:
+                type: string
+#    put:
+#      operationId: services.function.update
+#      tags:
+#        - Function
+#      summary: Update one function
+#      description: Update one function
+#      parameters:
+#        - name: fid
+#          in: path
+#          description: Id of the function to update
+#          type: integer
+#          required: true
+#        - name: function
+#          in: body
+#          schema:
+#            type: object
+#            properties:
+#              filename:
+#                type: string
+#              name:
+#                type: string
+#              parameters:
+#                type: string
+#              body:
+#                type: string
+#              commit_rev_string:
+#                type: string
+#      responses:
+#        200:
+#          description: Successfully updated function
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              filename:
+#                type: string
+#              name:
+#                type: string
+#              parameters:
+#                type: string
+#              body:
+#                type: string
+#              commit_rev_string:
+#                type: string
+#    delete:
+#      operationId: services.function.delete
+#      tags:
+#        - Function
+#      summary: Delete one function
+#      description: Delete one function
+#      parameters:
+#        - name: fid
+#          in: path
+#          description: Id of the function to delete
+#          type: integer
+#          required: true
+#      responses:
+#        200:
+#          description: Successfully deleted function
+  /function/commit:
+    get:
+      operationId: services.commit.read_complete_commit_history
+      tags:
+        - Commit
+      summary: read all commits that changed a function by name
+      parameters:
+        - name: function_name
+          in: query
+          type: string
+          required: true
+          description: function name
+        - name: rid
+          in: query
+          type: integer
+          required: true
+          description: repo id
+      responses:
+        200:
+          description: Successfully read all commits that changed a function
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                full_message:
+                  type: string
+                commit_time:
+                  type: string
+                rev_string:
+                  type: string
+                branch_id:
+                  type: integer
+                user_id:
+                  type: integer
+
+  /vertex:
+    get:
+      operationId: services.vertex.read_all
+      tags:
+        - Vertex
+      summary: The vertex data structure supported by the server application
+      description: Read the list of vertexs
+      responses:
+        200:
+          description: Successful read vertex list operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                function_id:
+                  type: integer
+#    post:
+#      operationId: services.vertex.create
+#      tags:
+#        - Vertex
+#      summary: Create a vertex
+#      description: Create a new vertex
+#      parameters:
+#        - name: vertex
+#          in: body
+#          description: Vertex to create
+#          required: true
+#          schema:
+#            type: object
+#            properties:
+#              function_id:
+#                type: integer
+#      responses:
+#        201:
+#          description: Successfully created vertex
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              function_id:
+#                type: integer
+#        409:
+#          description: Vertex already esists
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              function_id:
+#                type: integer
+  /vertex/{vid}:
+    get:
+      operationId: services.vertex.read
+      tags:
+        - Vertex
+      summary: Read one vertex
+      description: Read one vertex
+      parameters:
+        - name: vid
+          in: path
+          description: Id of the vertex to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read vertex from vertex data operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              function_id:
+                type: integer
+#    put:
+#      operationId: services.vertex.update
+#      tags:
+#        - Vertex
+#      summary: Update one vertex
+#      description: Update one vertex
+#      parameters:
+#        - name: vid
+#          in: path
+#          description: Id of the vertex to update
+#          type: integer
+#          required: true
+#        - name: vertex
+#          in: body
+#          schema:
+#            type: object
+#            properties:
+#              function_id:
+#                type: integer
+#      responses:
+#        200:
+#          description: Successfully updated vertex
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              function_id:
+#                type: integer
+#    delete:
+#      operationId: services.vertex.delete
+#      tags:
+#        - Vertex
+#      summary: Delete one vertex
+#      description: Delete one vertex
+#      parameters:
+#        - name: vid
+#          in: path
+#          description: Id of the vertex to delete
+#          type: integer
+#          required: true
+#      responses:
+#        200:
+#          description: Successfully deleted vertex
+  /vertex/{vid}/function:
+    get:
+      operationId: services.function.read_all_versions_by_vertex
+      tags:
+        - Function
+      summary: The function associated with the vertex
+      description: Get function by vertex id
+      parameters:
+        - name: vid
+          in: path
+          description: Id of the vertex to get the corresponding function
+          type: integer
+          required: true
+        - name: rid
+          in: query
+          description: repo id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successful read function operation
+#          schema:
+#            type: object
+#            properties:
+#              id:
+#                type: integer
+#              name:
+#                type: string
+#              parameters:
+#                type: string
+#              body:
+#                type: string
+#              commit_rev_string:
+#                type: string
+  /vertex/{vid}/commit:
+    get:
+      operationId: services.commit.read_all_commits_by_vertex_and_repo
+      tags:
+        - Commit
+        - Vertex
+      summary: Get commits by vertex
+      description: Gets additional commits by a vertex id
+      parameters:
+        - name: vid
+          in: path
+          description: Id of the vertex
+          type: integer
+          required: true
+        - name: rid
+          in: query
+          description: repo id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read commits
+  /vertex/{vid}/around:
+    get:
+      operationId: services.vertex.read_around
+      tags:
+        - Edge
+      summary: The edges that include this vertex
+      description: Get edges by vertex id
+      parameters:
+        - name: vid
+          in: path
+          description: Id of the vertex to get the corresponding edges
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successful read edges around vertex operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                from_:
+                  type: integer
+                to_:
+                  type: integer
+  /vertex/{vid}/edges:
+    get:
+      operationId: services.vertex.read_all_around
+      tags:
+        - Edge
+      summary: The edges that include this vertex
+      description: Get edges by vertex id
+      parameters:
+        - name: vid
+          in: path
+          description: Id of the vertex to get the corresponding edges
+          type: integer
+          required: true
+        - name: commit_rev_string
+          description: Commit revision
+          in: query
+          type: string
+          required: true
+      responses:
+        200:
+          description: Successful read edges around vertex operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                from_:
+                  type: integer
+                to_:
+                  type: integer
+                from_name:
+                  type: string
+                to_name:
+                  type: string
+  /vertex/{vid}/edges/:
+    get:
+      operationId: services.vertex.read_around_with_depth
+      tags:
+        - Edge
+      summary: The edges that include this vertex
+      description: Get edges by vertex id
+      parameters:
+        - name: vid
+          in: path
+          description: Id of the vertex to get the corresponding edges
+          type: integer
+          required: true
+        - name: depth
+          in: query
+          description: recursion depth
+          type: integer
+          required: true
+        - name: commit_rev_string
+          description: Commit revision
+          in: query
+          type: string
+          required: true
+      responses:
+        200:
+          description: Successful read edges around vertex operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                from_:
+                  type: integer
+                to_:
+                  type: integer
+                from_name:
+                  type: string
+                to_name:
+                  type: string
+  /vertex/{vid}/predecessor:
+    get:
+      operationId: services.vertex.read_previous
+      tags:
+        - Edge
+      summary: The edges that come before this edge in a graph
+      description: Get predecessor edges by vertex id
+      parameters:
+        - name: vid
+          in: path
+          description: Id of the vertex to get the corresponding edges
+          type: integer
+          required: true
+        - name: depth
+          description: Maximum recursion depth for successor
+          in: query
+          type: integer
+          required: true
+        - name: commit_rev_string
+          description: Commit revision
+          in: query
+          type: string
+          required: true
+      responses:
+        200:
+          description: Successful read edges before vertex operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                from_:
+                  type: integer
+                to_:
+                  type: integer
+  /vertex/{vid}/successor:
+    get:
+      operationId: services.vertex.read_next
+      tags:
+        - Edge
+      summary: The edges that come after this vertex
+      description: Get successor edges by vertex id
+      parameters:
+        - name: vid
+          in: path
+          description: Id of the vertex to get the corresponding edges
+          type: integer
+          required: true
+        - name: depth
+          description: Maximum recursion depth for successor
+          in: query
+          type: integer
+          required: true
+        - name: commit_rev_string
+          description: Commit revision
+          in: query
+          type: string
+          required: true
+      responses:
+        200:
+          description: Successful read edges after vertex operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                from_:
+                  type: integer
+                to_:
+                  type: integer
+  /vertex/function/{fid}:
+    get:
+      operationId: services.vertex.read_by_function_id
+      tags:
+        - Vertex
+      summary: Get the vertex by the corresponding function id
+      description: Read the vertex
+      parameters:
+        - name: fid
+          in: path
+          description: function id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successful read operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              function_id:
+                type: integer
+  /edge:
+    get:
+      operationId: services.edge.read_all
+      tags:
+        - Edge
+      summary: The edge data structure supported by the server application
+      description: Read the list of edges
+      responses:
+        200:
+          description: Successful read edge list operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                from_:
+                  type: integer
+                to_:
+                  type: integer
+#    post:
+#      operationId: services.edge.create
+#      tags:
+#        - Edge
+#      summary: Create a edge
+#      description: Create a new edge
+#      parameters:
+#        - name: edge
+#          in: body
+#          description: Edge to create
+#          required: true
+#          schema:
+#            type: object
+#            properties:
+#              from_:
+#                type: integer
+#              to_:
+#                type: integer
+#      responses:
+#        201:
+#          description: Successfully created edge
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              from_:
+#                type: integer
+#              to_:
+#                type: integer
+#        409:
+#          description: Edge already esists
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              from_:
+#                type: integer
+#              to_:
+#                type: integer
+  /edge/{eid}:
+    get:
+      operationId: services.edge.read
+      tags:
+        - Edge
+      summary: Read one edge
+      description: Read one edge
+      parameters:
+        - name: eid
+          in: path
+          description: Id of the edge to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read edge from edge data operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              from_:
+                type: integer
+              to_:
+                type: integer
+#    put:
+#      operationId: services.edge.update
+#      tags:
+#        - Edge
+#      summary: Update one edge
+#      description: Update one edge
+#      parameters:
+#        - name: eid
+#          in: path
+#          description: Id of the edge to update
+#          type: integer
+#          required: true
+#        - name: edge
+#          in: body
+#          schema:
+#            type: object
+#            properties:
+#              from_:
+#                type: integer
+#              to_:
+#                type: integer
+#      responses:
+#        200:
+#          description: Successfully updated edge
+#          schema:
+#            properties:
+#              id:
+#                type: integer
+#              from_:
+#                type: integer
+#              to_:
+#                type: integer
+#    delete:
+#      operationId: services.edge.delete
+#      tags:
+#        - Edge
+#      summary: Delete one edge
+#      description: Delete one edge
+#      parameters:
+#        - name: eid
+#          in: path
+#          description: Id of the edge to delete
+#          type: integer
+#          required: true
+#      responses:
+#        200:
+#          description: Successfully deleted edge
+  /git:
+    post:
+      operationId: services.git.start
+      tags:
+        - Git
+      summary: Load repo
+      description: Load repo
+      parameters:
+        - name: path
+          in: body
+          description: Repo to create
+          required: true
+          schema:
+            type: object
+            properties:
+              path:
+                type: string
+                description: path to the repo
+      responses:
+        201:
+          description: Successfully initializd repo
+          schema:
+            properties:
+              id:
+                type: integer
+              path:
+                type: string
+        409:
+          description: Repo already esists
+          schema:
+            properties:
+              id:
+                type: integer
+              path:
+                type: string
+  /graph/{rid}:
+    post:
+      operationId: services.graph.start
+      tags:
+        - Graph
+      summary: Test graph
+      description: Test graph
+      parameters:
+        - name: rid
+          in: path
+          description: Id of the repo to graph
+          type: integer
+          required: true
+      responses:
+        200:
+          description: OK
+    get:
+      operationId: services.graph.read
+      tags:
+        - Graph
+      summary: Test graph
+      description: Test graph
+      parameters:
+        - name: rid
+          in: path
+          description: Id of the repo to graph
+          type: integer
+          required: true
+      responses:
+        200:
+          description: OK
+#  /changes:
+#    post:
+#      operationId: services.changes.get_changes
+#      tags:
+#        - Change
+#      summary: Create change types
+#      description: Create and get change types
+#      parameters:
+#        - name: functions
+#          description: List of extended functions
+#          in: body
+#          schema:
+#            type: array
+#            items:
+#              type: object
+#              properties:
+#                id:
+#                  type: integer
+#                name:
+#                  type: string
+#                parameters:
+#                  type: string
+#                body:
+#                  type: string
+#                commit_rev_string:
+#                  type: string
+#                commit_time:
+#                  type: string
+#      responses:
+#        200:
+#          description: created change types
+#          schema:
+#            type: array
+#            items:
+#              properties:
+#                id:
+#                  type: integer
+#                name:
+#                  type: string
+#                parameters:
+#                  type: string
+#                body:
+#                  type: string
+#                commit_rev_string:
+#                  type: string
+#                commit_time:
+#                  type: string
+#                change_type:
+#                  type: string
+  /diff:
+    get:
+      operationId: services.diff.get_diff
+      tags:
+        - Diff
+      summary: Get diff of two commits according to file name
+      description: Get diff of two commits according to file name
+      parameters:
+        - name: crs_a
+          description: commit rev string of commit a
+          in: query
+          type: string
+          required: false
+        - name: crs_b
+          description: commit rev string of commit b
+          in: query
+          type: string
+          required: false
+        - name: filename
+          description: filename
+          in: query
+          type: string
+          required: true
+        - name: func_name
+          description: filename
+          in: query
+          type: string
+          required: true
+      responses:
+        200:
+          description: successfully created diff
+          schema:
+            type: object
+            properties:
+              diff:
+                type: string
+
+definitions:
+  User:
+    type: object
+    required:
+      - username
+      - email
+    properties:
+      id:
+        type: integer
+      username:
+        type: string
+      email:
+        type: string
+  Repo:
+    type: object
+    required:
+      - path
+    properties:
+      id:
+        type: integer
+      path:
+        type: string

@@ -1,0 +1,90 @@
+.card-color-bar {
+  min-width: 10px;
+  max-width: 10px;
+  border-radius: 4px 0 0 4px;
+  margin: -1rem 1rem -1rem -1rem !important;
+}
+
+
+.selected-card {
+  //background: #DDD;
+  //-webkit-box-shadow: 11px 15px 16px -1px #FFD740;
+  //box-shadow: 11px 15px 16px -1px #FFD740;
+  //color: gray;
+}
+
+
+mat-card {
+  margin: 0.5rem;
+}
+
+mat-card-content {
+  word-break: break-word;
+}
+
+.commit-list-header {
+  //margin: 1rem;
+
+  .commit-headline {
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.highlight {
+
+  &-introduced {
+    background: #8338ec;
+
+    &-text {
+      color: #8338ec;
+    }
+  }
+
+  &-body {
+    background: #FB5607;
+
+    &-text {
+      color: #FB5607;
+    }
+  }
+
+  &-param {
+    background: #38B000;
+
+    &-text {
+      color: #38B000;
+    }
+  }
+
+  &-multi {
+    background: #a71f31;
+
+    &-text {
+      color: #a71f31;
+    }
+  }
+
+  &-fcall {
+    background: #3a86ff;
+
+    &-text {
+      color: #3a86ff;
+    }
+  }
+}
+
+.selected {
+  background: #ffd740;
+}
+
+
+.card-container {
+  display: flex;
+}
+
+.comparison {
+  margin-left: 1.5rem;
+  color: darkgray;
+}

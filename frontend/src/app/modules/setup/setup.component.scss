@@ -1,0 +1,35 @@
+.mat-sidenav-container {
+  height: calc(100vh - 56px);
+  overflow: scroll;
+}
+
+.top-toolbar {
+  position: sticky;
+  position: -webkit-sticky;
+  z-index: 1000;
+  height: 56px;
+}
+
+.drawer-container {
+  width: 400px;
+  background: lightgray;
+}
+
+mat-drawer-content {
+  //padding: 0.25rem;
+  //display: flex;
+  background: lightgray;
+}
+
+.disclaimer {
+  padding: 0.5rem 0;
+  color: darkgray;
+  font-size: 10px;
+  line-height: 13px;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

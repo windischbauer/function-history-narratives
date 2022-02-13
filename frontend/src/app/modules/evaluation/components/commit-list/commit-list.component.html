@@ -1,0 +1,51 @@
+<!--<h3>Commits</h3>-->
+<!--&lt;!&ndash; This is buggy &ndash;&gt;-->
+<!--<mat-card *ngFor="let cf of commitFunctionList" (click)="emitFunc(cf.commit)"-->
+<!--          [ngClass]="{'selected': isSelected(cf.commit)}">-->
+<!--  <mat-card-header class="align-left">-->
+<!--    <mat-card-title>-->
+<!--      {{cf.commit.rev_string.slice(0, 8)}}-->
+<!--    </mat-card-title>-->
+<!--    <mat-card-subtitle>-->
+<!--      {{cf.commit.commit_time | date: 'dd. MMM. yyyy'}} - {{cf.func.change_type}}-->
+<!--    </mat-card-subtitle>-->
+<!--  </mat-card-header>-->
+<!--  <mat-card-content>-->
+<!--    {{getUser(cf.commit.user_id).username}} - -->
+<!--    {{cf.commit.full_message}}-->
+<!--  </mat-card-content>-->
+<!--</mat-card>-->
+
+<div class="commit-list-header component-container">
+  <div class="commit-headline">Commits</div>
+  <div>Number of function calls: {{fcallCount}}</div>
+  <div>Number of regular commits: {{commits.length - fcallCount}}</div>
+  <div>Total number of changes: {{commits.length}}</div>
+  <mat-checkbox
+    [checked]="excludeFcalls"
+    (change)="excludeFcalls = !excludeFcalls">
+    exclude function calls
+  </mat-checkbox>
+</div>
+<ng-container *ngFor="let c of mergeCommitLists(); let i = index">
+  <!--  <mat-card *ngIf="!isExcluded(c)" (click)="emitFunc(c)"-->
+  <mat-card (click)="emitFunc(c)" *ngIf="!isExcluded(c)"
+            [ngClass]="[isSelected(c) ? 'selected-card' : '', c.exploratory === true ? 'comparison': '']"
+            class="card-container">
+    <div class="card-color-bar" [ngClass]="[getHighlight(c, false)]"></div>
+    <div class="card-content">
+      <mat-card-title [ngClass]="getHighlight(c, true)">
+        {{c.rev_string.slice(0, 8)}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{c.commit_time | date: 'dd. MMM. yyyy'}}
+        --- <span
+      >{{getChangeType(c)}}</span>{{c.exploratory === true ? ' --- exploratory' : ''}}
+      </mat-card-subtitle>
+      <mat-card-content>
+        {{getUser(c.user_id).username}} -
+        {{c.full_message}}
+      </mat-card-content>
+    </div>
+  </mat-card>
+</ng-container>

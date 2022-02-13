@@ -1,0 +1,94 @@
+<mat-toolbar class="top-toolbar">
+  <button mat-icon-button (click)="drawer.toggle()" [disabled]="waiting > 0">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h2>{{fname}}</h2>
+  <div class="spacer"></div>
+  <app-overlay-spinner *ngIf="waiting"></app-overlay-spinner>
+  <div class="spacer"></div>
+  <ng-container *ngIf="explorationCommits.length > 0">
+    <h2>{{explorationFunctionName}}</h2>
+    <button mat-icon-button type="button" (click)="goToExploratoryFunction()">
+      <mat-icon>
+        chevron_right
+      </mat-icon>
+    </button>
+  </ng-container>
+</mat-toolbar>
+<mat-drawer-container class="mat-sidenav-container" [hasBackdrop]="false">
+  <mat-drawer #drawer mode="side" class="drawer-container">
+    <ng-container *ngIf="!waiting">
+      <app-commit-list [commits]="stateService.commits" [functions]="stateService.versionsOfSelectedFunc"
+                       [exploratoryCommits]="explorationCommits" [exploratoryFunctions]="explorationFuncs"
+                       [selectedFunc]="stateService.selectedFunc"
+                       (funcEmitter)="updateGraphAndDiff($event)"></app-commit-list>
+    </ng-container>
+  </mat-drawer>
+  <mat-drawer-content>
+    <ng-container *ngIf="!waiting">
+      <div class="left-side component-container">
+        <mat-slider
+          [max]="stateService.commits.length"
+          [min]="1"
+          [step]="1"
+          [thumbLabel]=true
+          [tickInterval]="1"
+          [(ngModel)]="sliderFunctionVersion"
+          [vertical]=true
+          [invert]=true
+          [disabled]="stateService.versionsOfSelectedFunc.length <= 1"
+          (change)="changeSelectedFunctionVersion()"
+          color="accent"
+        ></mat-slider>
+      </div>
+      <div *ngIf="graph" class="middle component-container">
+        <div class="graph-wrapper">
+          <div style="display: flex">
+            <div>
+              <div>Depth: {{depth}}</div>
+              <div>Incoming: {{incomingEdges}}</div>
+              <div>Outgoing: {{outgoingEdges}}</div>
+            </div>
+            <div class="spacer"></div>
+            <div>
+              <button appSelectNode (clickedNodeId)="getExplorationValuesByVertex($event)"
+                      mat-flat-button
+                      type="button"
+                      color="accent">
+                <span>Get diff from </span><span id="clickedNodeId"></span>
+              </button>
+            </div>
+          </div>
+          <mat-slider class="depth-slider"
+                      [max]="10"
+                      [min]="1"
+                      [step]="1"
+                      [thumbLabel]=true
+                      [tickInterval]="1"
+                      [(ngModel)]="depth"
+                      (change)="getGraphByFunctionVersion(stateService.selectedFunc)"
+          ></mat-slider>
+          <app-graph [input]="graph"></app-graph>
+        </div>
+      </div>
+      <div class="right-side">
+        <div class="right-top component-container">
+          <app-diff [input]="outputHtml"
+                    [commitRevString]="currentDiffCommitRev"
+                    [functionName]="fname"></app-diff>
+        </div>
+        <div *ngIf="explorationFuncs.length > 0" class="right-bottom component-container">
+          <app-diff [input]="explorationOutputHtml"
+                    [commitRevString]="explorationCurrentCommitRev"
+                    [functionName]="explorationFuncs[0].name"></app-diff>
+        </div>
+        <!--        <div *ngIf="outputHtml" class="component-container diff-container">-->
+        <!--          <ng-container>-->
+        <!--          </ng-container>-->
+        <!--        </div>-->
+      </div>
+    </ng-container>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<!--#EDAE49-->
